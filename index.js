@@ -70,9 +70,9 @@ client.connect(err => {
 
     // ****************************************************** delete item********************
 
-    app.delete("/delete/:id" , (req,res) =>{
-      console.log(req.params.id)
-      selectedCollection.deleteOne({_id : req.params.id})
+    app.delete("/delete/:name" , (req,res) =>{
+      console.log(req.params.name)
+      dataCollection.deleteOne({name : req.params.name})
       .then((result)=>{
         console.log(result)
         if(result){
