@@ -7,6 +7,7 @@ require('dotenv').config()
 const port = 5000
 console.log(process.env.DB_USER)
 
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cors())
 
@@ -30,14 +31,14 @@ client.connect(err => {
     //         res.send(result.insertedCount)
     //     })
     // })
-// ************************************************************************get
+// ************************************************************************get  all product home page
     app.get("/products",(req,res)=>{
       dataCollection.find({})
         .toArray ((err,documents) =>{
             res.send(documents)
         })
       })
-
+// ********************************************************** get checkout product
       app.get("/products/:key",(req,res)=>{
         console.log(req.params.key)
         dataCollection.find({name : req.params.key})
@@ -77,6 +78,16 @@ client.connect(err => {
         if(result){
           
         }
+      })
+    })
+
+    // ****************************************************  insert  data ****************
+    app.post("/addProduct", (req,res) =>{
+      const product = req.body 
+      console.log(product)
+      dataCollection.insertOne(product)
+      .then(result =>{
+        console.log("one product added")
       })
     })
 
